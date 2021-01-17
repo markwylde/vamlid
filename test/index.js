@@ -26,13 +26,19 @@ test('check schema sync - invalid', t => {
       ],
       password: [
         'is required'
+      ],
+      notHere: [
+        'is not a valid key'
       ]
     },
-    messages: []
+    messages: [
+      'notHere is not a valid key'
+    ]
   };
 
   const result = vamlid(schema, {
-    email: 'wrong'
+    email: 'wrong',
+    notHere: 'test'
   });
 
   t.deepEqual(expected, result);
@@ -85,13 +91,19 @@ test('check schema async - invalid', async t => {
       ],
       password: [
         'is required'
+      ],
+      notHere: [
+        'is not a valid key'
       ]
     },
-    messages: []
+    messages: [
+      'notHere is not a valid key'
+    ]
   };
 
   const result = await vamlid.async(schema, {
-    email: 'wrong'
+    email: 'wrong',
+    notHere: 'test'
   });
 
   t.deepEqual(expected, result);

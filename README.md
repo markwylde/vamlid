@@ -28,13 +28,27 @@ function validateUser (data) {
 
 const result = validateUser({
   email: 'wrong',
+  notHere: 'test'
 });
 
 console.log(result)
 /*
-  [
-
+{
+  fields: {
+    email: [
+      'should contain an @ symbol'
+    ],
+    password: [
+      'is required'
+    ],
+    notHere: [
+      'is not a valid key'
+    ]
+  },
+  messages: [
+    'notHere is not a valid key'
   ]
+}
 */
 ```
 
@@ -47,7 +61,7 @@ function validateUser (data) {
     email: [
       value => someDbProvider
         .find({ email: value })
-        .then(() => 'Email already taken')
+        .then(() => 'already taken')
         .catch(() => false),
       value => !value && 'is required',
       value => value && !value.includes('@') && 'should contain an @ symbol'
@@ -68,8 +82,22 @@ const result = await validateUser({
 
 console.log(result)
 /*
-  [
-
+{
+  fields: {
+    email: [
+      'already taken',
+      'should contain an @ symbol'
+    ],
+    password: [
+      'is required'
+    ],
+    notHere: [
+      'is not a valid key'
+    ]
+  },
+  messages: [
+    'notHere is not a valid key'
   ]
+}
 */
 ```
