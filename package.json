@@ -1,0 +1,27 @@
+{
+  "name": "vamlid",
+  "version": "1.0.0",
+  "description": "A simple way to validate an object against a pure javascript schema.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "basictap": "^1.1.11"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markwylde/vamlid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/markwylde/vamlid/issues"
+  },
+  "homepage": "https://github.com/markwylde/vamlid#readme"
+}
