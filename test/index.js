@@ -132,3 +132,44 @@ test('check schema async - valid', async t => {
 
   t.equal(result, undefined);
 });
+
+test('check schema async - nested empty array valid', async t => {
+  t.plan(1);
+
+  const schema = {
+    email: [
+      async value => sleep(10).then(() => undefined),
+      value => !value && 'is required',
+      value => value && !value.includes('@') && 'should contain an @ symbol'
+    ],
+
+    password: [
+      value => !value && 'is required',
+      value => value && value.length < 5 && 'should be greater than 5 characters'
+    ],
+
+    array: [
+      value => value && [undefined, 2, undefined]
+    ]
+  };
+
+  const result = await vamlid.async(schema, {
+    email: 'test@example.com',
+    password: 'success',
+    array: true
+  });
+
+  t.deepEqual(result, {
+    fields: {
+      array: [
+        [
+          undefined,
+          2,
+          undefined
+        ]
+      ]
+    },
+    messages: []
+  }
+  );
+});

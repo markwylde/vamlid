@@ -21,6 +21,19 @@ function vamlid (schema, data) {
           return validator(data[key], data);
         })
         .filter(key => !!key)
+        .filter(key => {
+          if (!Array.isArray(key)) {
+            return true;
+          }
+
+          const arrayIsEmpty = key.filter(item => !!item).length === 0;
+
+          if (arrayIsEmpty) {
+            return false;
+          }
+
+          return true;
+        })
         .forEach(message => {
           result.fields[key] = result.fields[key] || [];
           result.fields[key].push(message);
