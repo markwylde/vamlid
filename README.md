@@ -60,9 +60,8 @@ function validateUser (data) {
   const schema = {
     email: [
       value => someDbProvider
-        .find({ email: value })
-        .then(() => 'already taken')
-        .catch(() => false),
+        .findAll({ email: value })
+        .then((results) => results.length > 0 && 'already taken')
       value => !value && 'is required',
       value => value && !value.includes('@') && 'should contain an @ symbol'
     ],

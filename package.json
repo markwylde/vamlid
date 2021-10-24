@@ -10,7 +10,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "basictap": "^1.1.11"
+    "basictap": "^3.1.0"
   },
   "directories": {
     "test": "test"
