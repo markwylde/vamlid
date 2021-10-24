@@ -1,6 +1,6 @@
 {
   "name": "vamlid",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A simple way to validate an object against a pure javascript schema.",
   "main": "index.js",
   "scripts": {
