@@ -1,2 +1,7 @@
-module.exports = require('./sync');
-module.exports.async = require('./async');
+import sync from './sync.js';
+import async from './async.js';
+
+export default {
+  sync,
+  async
+};

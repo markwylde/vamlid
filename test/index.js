@@ -1,6 +1,6 @@
-const test = require('basictap');
+import test from 'basictap';
 
-const vamlid = require('../');
+import vamlid from '../index.js';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -20,23 +20,15 @@ test('check schema sync - invalid', t => {
   };
 
   const expected = {
+    messages: ['notHere is not a valid key'],
     fields: {
-      email: [
-        'should contain an @ symbol'
-      ],
-      password: [
-        'is required'
-      ],
-      notHere: [
-        'is not a valid key'
-      ]
-    },
-    messages: [
-      'notHere is not a valid key'
-    ]
+      notHere: ['is not a valid key'],
+      email: ['should contain an @ symbol'],
+      password: ['is required']
+    }
   };
 
-  const result = vamlid(schema, {
+  const result = vamlid.sync(schema, {
     email: 'wrong',
     notHere: 'test'
   });
@@ -59,7 +51,7 @@ test('check schema sync - valid', t => {
     ]
   };
 
-  const result = vamlid(schema, {
+  const result = vamlid.sync(schema, {
     email: 'test@example.com',
     password: 'success'
   });
@@ -72,7 +64,7 @@ test('check schema async - invalid', async t => {
 
   const schema = {
     email: [
-      async value => sleep(10).then(() => 'invalid'),
+      async () => sleep(10).then(() => 'invalid'),
       value => !value && 'is required',
       value => value && !value.includes('@') && 'should contain an @ symbol'
     ],
@@ -84,21 +76,12 @@ test('check schema async - invalid', async t => {
   };
 
   const expected = {
+    messages: ['notHere is not a valid key'],
     fields: {
-      email: [
-        'invalid',
-        'should contain an @ symbol'
-      ],
-      password: [
-        'is required'
-      ],
-      notHere: [
-        'is not a valid key'
-      ]
-    },
-    messages: [
-      'notHere is not a valid key'
-    ]
+      notHere: ['is not a valid key'],
+      password: ['is required'],
+      email: ['invalid', 'should contain an @ symbol']
+    }
   };
 
   const result = await vamlid.async(schema, {
@@ -114,7 +97,7 @@ test('check schema async - valid', async t => {
 
   const schema = {
     email: [
-      async value => sleep(10).then(() => undefined),
+      async () => sleep(10).then(() => undefined),
       value => !value && 'is required',
       value => value && !value.includes('@') && 'should contain an @ symbol'
     ],
@@ -138,7 +121,7 @@ test('check schema async - nested empty array valid', async t => {
 
   const schema = {
     email: [
-      async value => sleep(10).then(() => undefined),
+      async () => sleep(10).then(() => undefined),
       value => !value && 'is required',
       value => value && !value.includes('@') && 'should contain an @ symbol'
     ],
@@ -160,6 +143,7 @@ test('check schema async - nested empty array valid', async t => {
   });
 
   t.deepEqual(result, {
+    messages: [],
     fields: {
       array: [
         [
@@ -168,8 +152,7 @@ test('check schema async - nested empty array valid', async t => {
           undefined
         ]
       ]
-    },
-    messages: []
+    }
   }
   );
 });

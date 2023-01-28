@@ -8,7 +8,7 @@ npm install --save vamlid
 
 ## Usage (sync)
 ```javascript
-const vamlid = require('vamlid');
+import { sync as vamlid } from 'vamlid';
 
 function validateUser (data) {
   const schema = {
@@ -54,7 +54,7 @@ console.log(result)
 
 ## Usage (async)
 ```javascript
-const vamlid = require('vamlid/async');
+import { async as vamlid } from 'vamlid';
 
 function validateUser (data) {
   const schema = {

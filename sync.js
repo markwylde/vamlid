@@ -45,4 +45,4 @@ function vamlid (schema, data) {
   }
 }
 
-module.exports = vamlid;
+export default vamlid;
